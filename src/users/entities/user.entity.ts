@@ -1,8 +1,10 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, Index } from 'typeorm';
 
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
+  @Index()
+  @Column({ primary: true, generated: 'uuid' })
   id: number;
 
   @Column()
@@ -13,7 +15,4 @@ export class User {
 
   @Column({ default: true })
   is_active: boolean;
-
-  //   @OneToMany(type => Photo, photo => photo.user)
-  //   photos: Photo[];
 }
