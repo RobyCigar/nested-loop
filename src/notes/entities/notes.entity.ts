@@ -1,15 +1,15 @@
-import { Note } from 'src/notes/entities/notes.entity';
+import { User } from 'src/users/entities/user.entity';
 import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
   Index,
-  OneToMany,
+  ManyToOne,
   JoinColumn,
 } from 'typeorm';
 
 @Entity()
-export class User {
+export class Note {
   @PrimaryGeneratedColumn()
   @Index()
   @Column({ primary: true })
@@ -20,16 +20,10 @@ export class User {
   @Column({ generated: 'uuid' })
   uuid: number;
 
-  @Column()
-  first_name: string;
+  @Column({ type: 'longtext' })
+  content: string;
 
-  @Column()
-  last_name: string;
-
-  @Column({ default: false })
-  is_banned: boolean;
-
-  @OneToMany(() => Note, (notes) => notes.user)
+  @ManyToOne(() => User, (user) => user.notes)
   @JoinColumn()
-  notes: Note[];
+  user: User;
 }

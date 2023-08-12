@@ -1,20 +1,20 @@
 import { InputType } from '@nestjs/graphql';
-import { IsBoolean, IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { PrimaryGeneratedColumn } from 'typeorm';
 
 @InputType()
-export class CreateUserDto {
+export class CreateNoteDto {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @IsNotEmpty()
   @IsString()
-  @ApiProperty({ description: 'First name' })
-  first_name: string;
+  @ApiProperty({ description: 'Content of the notes' })
+  content: string;
 
   @IsNotEmpty()
   @IsString()
-  @ApiProperty({ description: 'Last name' })
-  last_name: string;
+  @ApiProperty({ description: 'User id relation' })
+  userId: string;
 }

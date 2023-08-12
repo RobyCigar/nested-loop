@@ -8,6 +8,12 @@ import { User } from './users/entities/user.entity';
 import { DataSource } from 'typeorm';
 import { CommentsModule } from './comments/comments.module';
 import { NotificationsModule } from './notifications/notifications.module';
+import { NotesService } from './notes/notes.service';
+import { NotesResolver } from './notes/notes.resolver';
+import { NotesModule } from './notes/notes.module';
+import { Note } from './notes/entities/notes.entity';
+import { GraphQLModule } from '@nestjs/graphql';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 
 @Module({
   imports: [
@@ -18,15 +24,17 @@ import { NotificationsModule } from './notifications/notifications.module';
       username: 'root',
       password: '',
       database: 'nestjs',
-      entities: [User],
+      entities: [User, Note],
       synchronize: true,
+      autoLoadEntities: true,
     }),
     UsersModule,
+    NotesModule,
     CommentsModule,
     NotificationsModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, NotesResolver],
   exports: [TypeOrmModule],
 })
 export class AppModule {
